@@ -13,7 +13,7 @@ $ ./SnapScrap.py
 ```
 ## Use it
 Just enter one username which has Public Profile.
-
+It saves the media in a Folder with the name of given username. 
 ## Heads Up
 Made by exploring Python. Inspired by similiar programms. Use at own risk.
 
