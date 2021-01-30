@@ -9,7 +9,9 @@ $ pip3 install -r requirements.txt
 
 ## Run it
 ```bash
-$ ./SnapScrap.py
+$ cd SnapScrap.py # Changing to this this directory.
+$ chmod +x SnapScrap.py # Make the script exceutable.
+$ ./SnapScrap.py # Running the script.
 ```
 ## Use it
 Just enter one username which has Public Profile.
