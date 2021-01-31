@@ -9,8 +9,8 @@ $ pip3 install -r requirements.txt
 
 ## Run it
 ```bash
-$ cd SnapScrap.py # Changing to this this directory.
-$ chmod +x SnapScrap.py # Make the script exceutable.
+$ cd SnapScrap.py # Changing to this directory.
+$ chmod +x SnapScrap.py # Make the script executable.
 $ ./SnapScrap.py # Running the script.
 ```
 ## Use it
