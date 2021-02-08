@@ -23,7 +23,12 @@ Made by exploring Python. Inspired by similiar programms. Use at own risk.
 
 ## Bonus Information
 Depending on changes Snap makes, they might or might not block your IP.
+
 Has not happend 'till now.
 
 
 Allen 2021
+
+
+[![License: Apache License 2.0](https://img.shields.io/github/license/allendema/SnapScrap.py)](https://github.com/allendema/SnapScrap.py/blob/main/LICENSE)
+![github commits](https://img.shields.io/github/last-commit/allendema/SnapScrap.py)
