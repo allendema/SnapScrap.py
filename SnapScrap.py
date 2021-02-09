@@ -3,11 +3,10 @@
 from bs4 import BeautifulSoup
 from time import sleep
 import requests
-import urllib
 import json
 import os
 
-query = input("Username bitte eintippen: ")
+query = input("Enter a username: ")
 
 path = query
 try:
@@ -28,7 +27,7 @@ if r.ok:
 	print("\033[1;32;40m Snapchat site is Responding :)  \n")
 	
 else:
-	print("\033[31m Snap! No connection with Snap! \n Verbindung war nicht erfolgreich!")
+	print("\033[31m Snap! No connection with Snap!")
 	
 soup = BeautifulSoup(r.content, "html.parser")
 
@@ -39,7 +38,7 @@ print("The script exists. \n")
 data = json.loads(snaps)
 
 #displayUsername = data["props"]["userDisplayInfo"]["username"]
-#print("Du hast nach", displayUsername, "gesucht. \n")
+#print("You have searched for:", displayUsername, "\n")
 
 try:
 	for i in data["props"]["story"]["snapList"]:
@@ -59,6 +58,6 @@ try:
 			print("Cannot make connection to download image")
 		
 except KeyError:
-	print("This user has no Story in the last 24h. \n Dieser nutzer hat keine Storys in letzen 24h.")
+	print("This user has no Story in the last 24h.")
 else:
-	print("\nAt least one Story found. Successfully Downloaded. \n Mindestns ein Story gefunden. Erfolgreich heruntergeladen.")
+	print("\nAt least one Story found. Successfully Downloaded.")
