@@ -44,7 +44,7 @@ data = json.loads(snaps)
 try:
 	for i in data["props"]["story"]["snapList"]:
 		file_url = (i["snapUrls"]["mediaUrl"])
-		file_name = file_url.split('/')[-3]
+		file_name = file_url.split('/')[-3][:7]
 		
 		print(file_url)
 		
