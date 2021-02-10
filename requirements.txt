@@ -1,5 +1,2 @@
 bs4
-beautifulsoup4
 requests
-urllib
-json
