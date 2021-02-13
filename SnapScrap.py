@@ -55,7 +55,7 @@ try:
 					f.write(chunk)
 				print(f"\033[33mGetting posts of:\033[33m {query}")
 		else:
-			print("Cannot make connection to download image")
+			print("Cannot make connection to download media.")
 		
 except KeyError:
 	print("This user has no Story in the last 24h.")
