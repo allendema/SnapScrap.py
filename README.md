@@ -31,4 +31,5 @@ Allen 2021
 
 
 [![License: Apache License 2.0](https://img.shields.io/github/license/allendema/SnapScrap.py)](https://github.com/allendema/SnapScrap.py/blob/main/LICENSE)
-![github commits](https://img.shields.io/github/last-commit/allendema/SnapScrap.py)
+[![github commits](https://img.shields.io/github/last-commit/allendema/SnapScrap.py)](https://github.com/allendema/SnapScrap.py/commits/main)
+[![Lines of Code](https://img.shields.io/tokei/lines/github/allendema/SnapScrap.py?style=flat-square)](https://github.com/allendema/SnapScrap.py/blob/main/SnapScrap.py)
