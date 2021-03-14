@@ -13,9 +13,22 @@ $ cd SnapScrap.py # Changing to this directory.
 $ chmod +x SnapScrap.py # Make the script executable.
 $ ./SnapScrap.py # Running the script.
 ```
+
+## In Action
+![inAction](https://github.com/allendema/SnapScrap.py/raw/main/example1.png)
+
+
+## Your directory later
+
+![Directory](https://github.com/allendema/SnapScrap.py/raw/main/example2.png)
+
+
+
+
 ## Use it
 Just enter one username which has Public Profile.
-It saves the media in a Folder with the name of given username. 
+It saves the media in a Folder with the name of given username.
+
 ## Heads Up
 Made by exploring Python. Inspired by similiar programms. Use at own risk.
 
