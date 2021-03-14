@@ -5,7 +5,7 @@ import requests
 import json
 import os
 
-query = input("Enter a username: \nUsername bitte eintippen: ")
+query = input("Enter a username: ")
 
 path = query
 try:
