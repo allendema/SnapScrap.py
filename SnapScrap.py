@@ -8,6 +8,7 @@ import os
 query = input("Enter a username: ")
 
 path = query
+
 try:
     os.mkdir(path)
 except FileExistsError:
@@ -43,12 +44,31 @@ data = json.loads(snaps)
 #displayUsername = data["props"]["userDisplayInfo"]["username"]
 #print("You have searched for", displayUsername, \n")
 
+bitmoji = data["props"]["pageLinks"]["snapcodeImageUrl"]
+#print("Here is the Bitmoji: ", bitmoji)
+
 try:
     for i in data["props"]["story"]["snapList"]:
 
         file_url = (i["snapUrls"]["mediaUrl"])
-        file_name = file_url.split('/')[-3][:7]
+        #file_name = file_url.split('/')[-3][:7]
+        splitted_name = file_url.split('/')[-3][:7]
         
+        mp4 = file_url.rfind("mp4")
+        jpg = file_url.rfind("jpg")
+        png = file_url.rfind("png")
+        
+        if mp4 != -1:
+            #print("We have mp4 here.")
+            file_name = splitted_name + ".mp4"
+        if jpg != -1:
+            #print("We have jpg here.")
+            file_name = splitted_name + ".jpg"
+        if png != -1:
+            #print("We have png here.")
+            file_name = splitted_name + ".png"
+        
+
         print(file_url)
         
         r = requests.get(file_url, stream=True, headers = headers)
