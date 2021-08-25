@@ -46,11 +46,17 @@ print("The script exists. \n")
 
 data = json.loads(snaps)
 
+# Detect if the user is public but still print the bio and bitmoji
+try:
+	bitmoji = data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["snapcodeImageUrl"]
+	bio = data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["bio"] 
 
-
-bio =data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["bio"]
-bitmoji = data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["snapcodeImageUrl"]
-
+except KeyError:
+	bitmoji = data["props"]["pageProps"]["userProfile"]["userInfo"]["snapcodeImageUrl"]
+	bio = data["props"]["pageProps"]["userProfile"]["userInfo"]["displayName"]
+	print("Here is the Bio:\n", bio, "\nand Bitmoji:\n", bitmoji)
+	print("\nThis user is private")
+	sys.exit(1)
 
 print("Bio of the user:\n", bio )
 print("\nHere is the Bitmoji:\n", bitmoji)
@@ -100,7 +106,7 @@ try:
 
         if r.status_code == 200:
             with open(file_name, 'wb') as f:
-                for chunk in r.iter_content(chunk_size=10000):
+                for chunk in r:
                     f.write(chunk)
 
         else:
