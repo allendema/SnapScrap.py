@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
 from bs4 import BeautifulSoup
+from time import sleep
 import requests
 import json
+import sys
 import os
 
 query = input("Enter a username: ")
@@ -16,13 +18,13 @@ except FileExistsError:
 
 os.chdir(path)
 
-url = "https://story.snapchat.com/u/"
+url = "https://story.snapchat.com/@"
 
 mix = url + str(query)
 print(mix)
 
 headers = {
-    'User-Agent': '"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0',
+    'User-Agent': '"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0',
 }
 
 r = requests.get(mix, headers = headers)
@@ -32,57 +34,80 @@ if r.ok:
     
 else:
     print("\033[31m Snap! No connection with Snap!")
+    sys.exit(1)
     
 soup = BeautifulSoup(r.content, "html.parser")
 
-snaps = soup.find_all("script")[4].string.strip()
+# Find the script with JSON data on the site
+snaps = soup.find_all("script")[2].string.strip()
+
 
 print("The script exists. \n")
 
 data = json.loads(snaps)
 
-#displayUsername = data["props"]["userDisplayInfo"]["username"]
-#print("You have searched for", displayUsername, \n")
 
-bitmoji = data["props"]["pageLinks"]["snapcodeImageUrl"]
-#print("Here is the Bitmoji: ", bitmoji)
+
+bio =data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["bio"]
+bitmoji = data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["snapcodeImageUrl"]
+
+
+print("Bio of the user:\n", bio )
+print("\nHere is the Bitmoji:\n", bitmoji)
+
+
+print(f"\n\033[33mGetting posts of:\033[33m {query}\n")
 
 try:
-    for i in data["props"]["story"]["snapList"]:
+    # Find all links with a for-loop
+    for i in data["props"]["pageProps"]["story"]["snapList"]:
 
-        file_url = (i["snapUrls"]["mediaUrl"])
-        #file_name = file_url.split('/')[-3][:7]
-        splitted_name = file_url.split('/')[-3][:7]
-        
+        file_url = i["snapUrls"]["mediaUrl"]
+
+        if file_url == "":
+            print("There is a Story but no URL is provided by Snapchat.")
+            continue
+
+        print(file_url)
+            
+        # Split the URL then get the last eight characters as name
+        splitted_name = file_url.rpartition('=/')[0][-8:]
+
+        # Define what to look for 
         mp4 = file_url.rfind("mp4")
         jpg = file_url.rfind("jpg")
         png = file_url.rfind("png")
-        
+
+        # If those formats are found add the extention
         if mp4 != -1:
-            #print("We have mp4 here.")
             file_name = splitted_name + ".mp4"
         if jpg != -1:
-            #print("We have jpg here.")
             file_name = splitted_name + ".jpg"
         if png != -1:
-            #print("We have png here.")
             file_name = splitted_name + ".png"
         
 
-        print(file_url)
+        #  Check if this file / file_name exists
+        if os.path.isfile(file_name) == True:
+            continue
         
-        r = requests.get(file_url, stream=True, headers = headers)
+        #  Sleep a bit
+        sleep(0.3)
+        
+        # Download media and use a short unique file_name
+        r = requests.get(file_url, stream=True, headers=headers)
+
 
         if r.status_code == 200:
             with open(file_name, 'wb') as f:
-                for chunk in r:
+                for chunk in r.iter_content(chunk_size=10000):
                     f.write(chunk)
-                print(f"\033[33mGetting posts of:\033[33m {query}")
+
         else:
             print("Cannot make connection to download media!")
-        
+
 except KeyError:
-    print("This user has no Story in the last 24h.")
+    print("No user stories found for the last 24h.")
 else:
     print("\nAt least one Story found. Successfully Downloaded.")
 
