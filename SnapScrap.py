@@ -23,14 +23,14 @@ mix = url + str(query)
 print(mix)
 
 headers = {
-    'User-Agent': '"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/94.0',
+	'User-Agent': '"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/94.0',
 }
 
-r = requests.get(mix, headers = headers)
+r = requests.get(mix, headers=headers)
 
 if r.ok:
 	print("\033[1;32;40m Snapchat site is Responding :)  \n")
-	
+
 else:
 	print("\033[31m Snap! No connection with Snap!")
 	sys.exit(1)
@@ -38,9 +38,7 @@ else:
 soup = BeautifulSoup(r.content, "html.parser")
 #print(soup)
 
-# Find the script with JSON data on the site
-# TODO: Find script with "application/json"
-snaps = soup.find_all("script")[3].string.strip()
+snaps = soup.find(id="__NEXT_DATA__").string.strip()
 
 
 print("The script exists. \n")
@@ -49,7 +47,7 @@ data = json.loads(snaps)
 
 try:
 	bitmoji = data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["snapcodeImageUrl"]
-	bio = data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["bio"] 
+	bio = data["props"]["pageProps"]["userProfile"]["publicProfileInfo"]["bio"]
 
 except KeyError:
 	bitmoji = data["props"]["pageProps"]["userProfile"]["userInfo"]["snapcodeImageUrl"]
@@ -58,7 +56,7 @@ except KeyError:
 	print("\nThis user is private.")
 	sys.exit(1)
 
-print("Bio of the user:\n", bio )
+print("Bio of the user:\n", bio)
 print("\nHere is the Bitmoji:\n", bitmoji)
 
 
@@ -78,20 +76,19 @@ try:
 		r = requests.get(file_url, stream=True, headers=headers)
 
 		if "image" in r.headers['Content-Type']:
-			file_name = r.headers['ETag'][12] + ".jpeg"
+			file_name = r.headers['ETag'] + ".jpeg"
 			print(file_name)			
 
 		elif "video" in r.headers['Content-Type']:
-			file_name = r.headers['ETag'][12] + ".mp4"
+			file_name = r.headers['ETag'] + ".mp4"
 			print(file_name)
-
 
 		#  Check if this file / file_name exists
 		if os.path.isfile(file_name) :
 			continue
 	
 		#  Sleep a bit
-		sleep(0.3)		
+		sleep(0.3)	
 
 		if r.status_code == 200:
 			with open(file_name, 'wb') as f:
