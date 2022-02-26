@@ -76,11 +76,11 @@ try:
 		r = requests.get(file_url, stream=True, headers=headers)
 
 		if "image" in r.headers['Content-Type']:
-			file_name = r.headers['ETag'] + ".jpeg"
+			file_name = r.headers['ETag'].replace('"', '') + ".jpeg"
 			print(file_name)			
 
 		elif "video" in r.headers['Content-Type']:
-			file_name = r.headers['ETag'] + ".mp4"
+			file_name = r.headers['ETag'].replace('"', '') + ".mp4"
 			print(file_name)
 
 		#  Check if this file / file_name exists
