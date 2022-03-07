@@ -4,6 +4,7 @@ Downloads public Snapchat stories in your System.
 ## Saving this locally
 ```bash
 $ git clone https://github.com/allendema/SnapScrap.py.git
+$ cd SnapScrap.py/
 $ pip3 install -r requirements.txt
 ```
 
@@ -11,7 +12,7 @@ $ pip3 install -r requirements.txt
 ```bash
 $ cd SnapScrap.py # Changing to this directory.
 $ chmod +x SnapScrap.py # Make the script executable.
-$ ./SnapScrap.py # Running the script.
+$ python3 SnapScrap.py # Run the script.
 ```
 
 ## In Action
@@ -26,8 +27,8 @@ $ ./SnapScrap.py # Running the script.
 
 
 ## Use it
-Just enter one username which has Public Profile.
-It saves the media in a Folder with the name of given username.
+Just enter one username which has a Public Profile.  
+It saves the media in current directory in a Folder named after given username.
 
 ## Heads Up
 Made by exploring Python. Inspired by similiar programms. Use at own risk.
