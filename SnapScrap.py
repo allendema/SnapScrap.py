@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 __author__ = "https://codeberg.org/allendema"
-__copyright__ = "Allen Dema 2020-2022"
-__license__ = "https://github.com/allendema/SnapScrap.py/blob/main/LICENSE"
 
 from time import sleep
 import time
@@ -38,6 +36,8 @@ def user_input():
 YELLOW = "\033[1;32;40m"
 RED = "\033[31m"
 
+headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/103.0.2'}
+
 base_url = "https://story.snapchat.com/@"
 username = user_input()
 
@@ -46,9 +46,7 @@ print(mix)
 
 
 def get_json():
-	headers = {
-		'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/103.0.2',
-	}
+	"""Get json from the website"""
 
 	r = requests.get(mix, headers=headers)
 
@@ -96,6 +94,7 @@ def profile_metadata(json_dict=get_json()):
 
 def download_media(json_dict=get_json()):
 	"""Print media URLs and download media."""
+
 	try:
 		# Get all links with a for-loop
 		for i in json_dict["props"]["pageProps"]["story"]["snapList"]:
@@ -108,14 +107,14 @@ def download_media(json_dict=get_json()):
 
 			# Download media and use a short unique file_name
 			r = requests.get(file_url, stream=True, headers=headers)
-			#print(r.headers['ETag'])
+
 			if "image" in r.headers['Content-Type']:
 				file_name = r.headers['ETag'].replace('"', '') + ".jpeg"
-				#print(file_name)
+				print(file_name)
 
 			elif "video" in r.headers['Content-Type']:
 				file_name = r.headers['ETag'].replace('"', '') + ".mp4"
-				#print(file_name)
+				print(file_name)
 
 			#  Check if this file / file_name exists
 			if os.path.isfile(file_name):
